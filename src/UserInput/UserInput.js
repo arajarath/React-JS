@@ -4,7 +4,7 @@ import './UserInput.css';
 const userInput = (props) => {
     return (
         <div className = "UserInput" >
-            Input from UserInput component: <input type="text" onChange={props.changed} value={props.username}/>
+            Input from UserInput component, Edit Name: <input type="text" onChange={props.changed} value={props.name}/>
         </div>
     )
 }
