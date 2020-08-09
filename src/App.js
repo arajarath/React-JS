@@ -3,6 +3,8 @@ import './App.css';
 // import Person from './Person/Person';
 import UserOutput from './UserOutput/UserOutput';
 import UserInput from './UserInput/UserInput';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
 class App extends Component {
 
   state = {
@@ -12,7 +14,8 @@ class App extends Component {
       { id: '3', name: 'Sarathkumar', age: 28 },
       { id: '4', name: 'Anandan S', age: 68 }
     ],
-    showPersons: false
+    showPersons: false,
+    userInput: ''
   }
 
   toggleNameHandler = () => {
@@ -55,7 +58,15 @@ class App extends Component {
     persons.splice(nameIndex, 1);
     this.setState({ persons: persons })
   }
-
+  changeLengthHandler = (event)=> {
+    this.setState({userInput: event.target.value})
+  }
+  deleteCharHandler = (index)=> {
+    const text = this.state.userInput.split('');
+    text.splice(index, 1);
+    const updatedText = text.join('');
+    this.setState({userInput: updatedText});
+  }
   render() {
     const style = {
       backgroundColor: '#071d49',
@@ -93,11 +104,20 @@ class App extends Component {
         </div>
       )
     }
+    const charList = this.state.userInput.split('').map((ch, index) =>{
+      return <Char clicked={()=> this.deleteCharHandler(index)} key={index} character= {ch}/>
+    })
     return (
       <div className="App">
         <h1>React Application</h1>
         <button style={style} onClick={this.toggleNameHandler}>Switch Name</button>
         {persons}
+        <h1>Second Assignment</h1>
+        <input type="text" onChange={(event)=> this.changeLengthHandler(event)} value={this.state.userInput}/>
+    <Validation userInputLength= {this.state.userInput.length} />
+    
+        <p>Entered above text is : <strong>{this.state.userInput}</strong> </p>
+        {charList}
       </div>
     );
   }
